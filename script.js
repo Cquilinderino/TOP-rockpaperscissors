@@ -51,9 +51,12 @@ function game() {
 
     if (playerWinCount > computerWinCount) {
         console.log("You win!");
+    } else if (playerWinCount == computerWinCount) {
+        console.log("Draw!");
     } else {
         console.log("You lost :(");
     }
 }
 
+RemotePlayback
 game();
