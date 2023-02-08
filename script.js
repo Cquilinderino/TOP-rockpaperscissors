@@ -3,60 +3,69 @@ let playerSelection;
 let playerWinCount = 0;
 let computerWinCount = 0;
 
-let rollArray = ["Rock", "Paper", "Scissors"];
+let rollArray = ["rock", "paper", "scissors"];
+
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissors = document.getElementById('scissors');
+const h2 = document.querySelector('h2');
+const compScore = document.getElementById('computerScore');
+const playerScore = document.getElementById('playerScore');
+const computerChoice = document.getElementById('computerChoice');
+const playerChoice = document.getElementById('playerChoice');
+
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        playerSelection = e.target.id;
+
+        playRound();
+        return playerSelection;
+    })
+})
 
 function getComputerChoice() {
-    //roll an int from 3 numbers (0, 1, 2)
-    return rollArray[Math.floor(Math.random() * rollArray.length)];
+    computerSelection = rollArray[Math.floor(Math.random() * rollArray.length)];
+    return computerSelection;
 }
 
-function playRound(playerSelection, computerSelection) {
-    computerSelection = getComputerChoice().toLowerCase();
-    playerSelection = prompt("Rock, paper or scissors?").toLowerCase();
-    console.log(playerSelection);
-    console.log(computerSelection);
-
+function checkWinner() {
     if (computerSelection == playerSelection) {
-        console.log("Draw!");
-        return result = "draw";
+        h2.innerHTML = 'Draw!';
+        return result = 'draw';
     } else if (
         (computerSelection == "rock" && playerSelection == "paper") ||
         (computerSelection == "paper" && playerSelection == "scissors") ||
         (computerSelection == "scissors" && playerSelection == "rock") 
     ) {
-        console.log("Win!");
-        return result = "win";
+        h2.innerHTML = 'You win!';
+        playerWinCount++;
     } else {
-        console.log("Lose!");
-        return result = "lose";
+        h2.innerHTML = 'You lose!';
+        computerWinCount++;
     }
 }
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        playRound();
-        if (result == "win") {
-            playerWinCount++;
-            console.log(`Opponent: ${computerWinCount}`);
-            console.log(`You: ${playerWinCount}`);
-        } else if (result == "lose") {
-            computerWinCount++;
-            console.log(`Opponent: ${computerWinCount}`);
-            console.log(`You: ${playerWinCount}`);
-        } else {
-            console.log(`Opponent: ${computerWinCount}`);
-            console.log(`You: ${playerWinCount}`);
-        }
-    }
-
-    if (playerWinCount > computerWinCount) {
-        console.log("You win!");
-    } else if (playerWinCount == computerWinCount) {
-        console.log("Draw!");
-    } else {
-        console.log("You lost :(");
-    }
+function playRound() {
+    getComputerChoice();
+    checkWinner();
+    updateScore();
+    computerChoice.innerHTML = `Computer: ${computerSelection}`;
+    playerChoice.innerHTML = `Player: ${playerSelection}`;
 }
 
-RemotePlayback
-game();
+function updateScore() {
+    if (playerWinCount >= 5) {
+        playerWinCount = 0;
+        computerWinCount = 0;
+        compScore.innerHTML = `Computer: ${computerWinCount}`;
+        playerScore.innerHTML = `Player: ${playerWinCount}`;
+    } else if (computerWinCount >= 5) {
+        playerWinCount = 0;
+        computerWinCount = 0;
+        compScore.innerHTML = `Computer: ${computerWinCount}`;
+        playerScore.innerHTML = `Player: ${playerWinCount}`;
+    } else {
+        compScore.innerHTML = `Computer: ${computerWinCount}`;
+        playerScore.innerHTML = `Player: ${playerWinCount}`;
+    }
+}
