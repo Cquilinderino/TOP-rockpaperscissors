@@ -30,17 +30,16 @@ function getComputerChoice() {
 
 function checkWinner() {
     if (computerSelection == playerSelection) {
-        h2.innerHTML = 'Draw!';
-        return result = 'draw';
+        h2.innerHTML = 'Result: Draw!';
     } else if (
         (computerSelection == "rock" && playerSelection == "paper") ||
         (computerSelection == "paper" && playerSelection == "scissors") ||
         (computerSelection == "scissors" && playerSelection == "rock") 
     ) {
-        h2.innerHTML = 'You win!';
+        h2.innerHTML = 'Result: You win!';
         playerWinCount++;
     } else {
-        h2.innerHTML = 'You lose!';
+        h2.innerHTML = 'Result: You lose!';
         computerWinCount++;
     }
 }
